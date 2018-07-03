@@ -48,6 +48,12 @@ parser.add_argument('-n', '--num_threads', metavar='num_cpu',
 parser.add_argument('-b', '--blast_program', metavar='blast+ program',
     dest='b', type=str, default='blastp',
     help='specify the blast program (default=blastp)')
+parser.add_argument('-id', '--identity', metavar='identity_threshold',
+    dest='idt', type=float, default=0,
+    help='specify the threshold of identity (default=0)')
+parser.add_argument('-qc', '--qcov', metavar='coverage_threshold',
+    dest='qc', type=float, default=0,
+    help='specify the threshold of query coverage (default=0)')
 parser.add_argument('--no_qseq', metavar='hide qseq column',
     dest='nq', nargs="?", const=True, default=False,
     help='no query sequences will be showed if this argument is added')
@@ -139,7 +145,7 @@ def creat_dict(fa):
         dict[name] += line.strip()
     return dict
 
-def blast_Parser(fi, fo, header, *dict):
+def blast_Parser(fi, fo, header, idt, qc, *dict):
     '''
     fi: blast output (format as defined in this script)
     fo: final output
@@ -155,8 +161,10 @@ def blast_Parser(fi, fo, header, *dict):
             items = line.strip().split("\t")
             qstart, qend, qlen = map(float, (items[6], items[7], items[10]))
             qcov = 100 * (qend - qstart) / qlen
-            qcov = str(round(qcov, 1))
-            items.append(qcov)
+            ident = float(items[2])
+            if ident < idt or qcov < qc:
+                continue
+            items.append(str(round(qcov, 1)))
             if seq_dict:
                 qid = items[0]
                 items.append(seq_dict[qid])
@@ -193,9 +201,9 @@ def main():
     # if the --no_qseq option was specified, there would be no qseq column.
     if args.nq == True:
         header.remove('qseq')
-        blast_Parser(tempt_output, args.o ,header)
+        blast_Parser(tempt_output, args.o ,header, args.idt, args.qc)
     else:
-        blast_Parser(tempt_output, args.o ,header, dict)
+        blast_Parser(tempt_output, args.o ,header, args.idt, args.qc, dict)
     # Remove temp file
     os.remove('blast_output.tmp')
 

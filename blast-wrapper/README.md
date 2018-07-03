@@ -3,6 +3,8 @@ Pipleline for conducting **makeblastdb** and **blastp/blastn** using one simple 
 
 Show blast results in a **more elegant way**. Not only table headers, but also **query coverages** and the **original query sequences** were calculated and showed in the results.
 
+This script can also parse and filter the blast result by setting threshold of identity and coverage!
+
 ## Require
 - BLAST+ installed in `$PATH`
 - Using **Python3**
@@ -10,10 +12,11 @@ Show blast results in a **more elegant way**. Not only table headers, but also *
 ## Usage
 ```
 $ python3 blast_wrapper.py -h
-usage: blast_wrapper.py [-h] -q query_fasta [-o output][-df database_fasta]
-                        [-db database][-e max_e-value] [-ms num_sequences]
-                        [-n num_cpu][-b blast+ program]
-                        [--no_qseq [hide qseq column]][-f output_format*]
+usage: blast_wrapper.py [-h] -q query_fasta [-o output] [-df database_fasta]
+                        [-db database] [-e max_e-value] [-ms num_sequences]
+                        [-n num_cpu] [-b blast+ program]
+                        [-id identity_threshold] [-qc coverage_threshold]
+                        [--no_qseq [hide qseq column]] [-f output_format*]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -33,10 +36,14 @@ optional arguments:
                         (default=3)
   -b blast+ program, --blast_program blast+ program
                         specify the blast program (default=blastp)
+  -id identity_threshold, --identity identity_threshold
+                        specify the threshold of identity (default=0)
+  -qc coverage_threshold, --qcov coverage_threshold
+                        specify the threshold of query coverage (default=0)
   --no_qseq [hide qseq column]
                         no query sequences will be showed if this argument is
                         added
-  -f output_format, --outfmt output_format
+  -f output_format*, --outfmt output_format*
                         outfmt defined by blast+, it is dangerous to change
                         the default value
 ```
@@ -62,7 +69,7 @@ $ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna -e 1
 
 ## Control freak
 ```bash
-$ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna -e 1e-10 -n 5 -ms 3 --no_qseq
+$ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna -e 1e-10 -id 30 -qc 50 -n 5 -ms 3 --no_qseq
 ```
 *Any change to output format by -f option may lead to errors when parsing output results, although it's up to you to make any change*
 
@@ -71,6 +78,7 @@ $ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna -e 1
 - The option `-q` is required to specify the query fasta file. The option `-df` or `-db` is required to specify the target database in fasta famat or an database that has already made by makeblastdb command in blast+ software.
 - If no output is specified by `-o`, the result would be created in the current direcoty according to the regular `QueryFileName_blast.out`.
 - if `-df` is specified, the database would be created in the same directory as the argument specified using the name `DatabaseFasta.db`. And if such a database already exsits, the script would skip the makeblastdb step.
+- Using `-id` and `-qc` to set the threshold of **identity** and **query coverage**, respectively.
 - `--no_seqs` could used when you don't want the orignal query sequences appear in the final result. This may speed up the program in some extend.
 - 3 threads would be used by default, which could be modified by `-n` option.
 
@@ -107,7 +115,7 @@ $ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna -e 1
 
 ## 高级
 ```bash
-$ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna -e 1e-10 -n 5 -ms 3 --no_qseq
+$ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna -e 1e-10 -id 30 -qc 50 -n 5 -ms 3 --no_qseq
 ```
 *虽然脚本支持通过选项-f来更改输出样式，但任何样式的更改都可能会导致后续分析结果呈现的错误*
 
@@ -116,6 +124,7 @@ $ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna -e 1
 - 选项 `-q`是必选项，用来指定查询序列的文件位置。选项`-df`或者 `-db` 必须指定其一，分别可以指定用来建库的fasta文件或者已经建立的数据库位置。
 - 如果`-o`选项为缺省状态，则程序会在当前路径下新建文件名为 `QueryFileName_blast.out`格式的文件存放结果。
 - 如果指定了`-df`选项，则程序会在指定的fasta库相同路径下新建`DatabaseFasta.db`名称格式的数据库文件，如果该数据库被程序发现已经存在，则程序会自动跳过建库步骤，直接使用存在的数据库进行搜索。
+- 通过`-id`和`-qc`分别指定**一致性**和**覆盖度**的最小值以实现对结果的过滤
 - 可以使用`--no_seqs`选项来取消在结果中显示查询序列的原序列，这可能会在一定程度上加快程序运行的速度。 
 - 程序默认的线程数是3个，可以使用`-n`选项来更改。
 ##小技巧
