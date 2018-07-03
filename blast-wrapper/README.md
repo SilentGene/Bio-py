@@ -1,14 +1,14 @@
 # blast-wrapper
 Pipleline for conducting makeblastdb and blastp/blastn using one simple command.
-##Usage
-
-`$ python3 blast_wrapper.py -h`
-`usage: blast_wrapper.py [-h] -q query_fasta [-o output][-df database_fasta]`
+## Usage
+```
+$ python3 blast_wrapper.py -h
+usage: blast_wrapper.py [-h] -q query_fasta [-o output][-df database_fasta]
                         [-db database][-e max_e-value] [-ms num_sequences]
                         [-n num_cpu][-b blast+ program]
                         [--no_qseq [hide qseq column]][-f output_format*]
 
-`optional arguments:`
+optional arguments:
   -h, --help            show this help message and exit
   -q query_fasta, --query query_fasta
   -o output, --output output
@@ -31,4 +31,26 @@ Pipleline for conducting makeblastdb and blastp/blastn using one simple command.
                         added
   -f output_format, --outfmt output_format
                         outfmt defined by blast+, it is dangerous to change
-                        `the default value`
+                        the default value
+```
+## Simplest
+```
+$ python blast_wrapper.py -q query.faa -df database.faa
+```
+or if you already have an established database:
+```
+$ python blast_warpper.py -q query.faa -db blast+_database
+```
+## Moderate
+```
+$ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna -e 1e-10 -n 5
+```
+
+## Control freak
+```
+$ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna -e 1e-10 -n 5 -ms 3 --no_qseq
+```
+*Any change to output format by -f option may lead to errors when parsing output results, although it's up to you to make any change*
+
+  
+  
