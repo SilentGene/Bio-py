@@ -1,9 +1,12 @@
 # blast-wrapper
-Pipleline for conducting makeblastdb and blastp/blastn using one simple command.
+Pipleline for conducting **makeblastdb** and **blastp/blastn** using one simple command.
+
+Show blast results in a **more elegant way**. Not only table headers, but also **query coverages** and the **original query sequences** were calculated and showed in the results.
+
 ## Require
-- BLAST+ installed in $PATH
-- Python3
-- Work on both windows and unix-like systems
+- BLAST+ installed in `$PATH`
+- Using **Python3**
+- Work on both Windows and unix-like systems
 ## Usage
 ```
 $ python3 blast_wrapper.py -h
@@ -77,11 +80,14 @@ If you happen to have a bunch of fasta files waiting for blast against a databas
 $ for f in *.faa; do python3 blast_wrapper.py -q $f -df data.faa; done
 ```
 
-# Chinese Usage中文使用说明
-blast-wrapper.py脚本能够通过简单的一行命令实现“建库”+“blast搜索”两个本地blast步骤。
+# Chinese Usage 中文使用说明
+blast-wrapper.py脚本能够通过简单的一行命令实现**“建库”+“blast搜索”**两个本地blast步骤。
+
+使用该脚本还可以帮助我们以更优雅的方式阅读blast的结果。得到的表格不仅具有清晰的表头信息，且经过计算的**覆盖度**和**原查询序列**均可以显示在结果中，便于进一步分析解读。
+
 ## 要求
-- Blast+已安装并存在环境变量$PATH中
-- 使用Python3
+- Blast+已安装并存在环境变量`$PATH`中
+- 使用**Python3**
 - 在Windows和类unix系统中均可运行
 ## 初级
 
