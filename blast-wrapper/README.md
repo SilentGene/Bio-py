@@ -81,7 +81,7 @@ $ for f in *.faa; do python3 blast_wrapper.py -q $f -df data.faa; done
 ```
 
 # Chinese Usage 中文使用说明
-blast-wrapper.py脚本能够通过简单的一行命令实现**“建库”+“blast搜索”**两个本地blast步骤。
+blast-wrapper.py脚本能够通过简单的一行命令实现**建库**和**blast搜索**两个本地blast步骤。
 
 使用该脚本还可以帮助我们以更优雅的方式阅读blast的结果。得到的表格不仅具有清晰的表头信息，且经过计算的**覆盖度**和**原查询序列**均可以显示在结果中，便于进一步分析解读。
 
