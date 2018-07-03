@@ -1,5 +1,9 @@
 # blast-wrapper
 Pipleline for conducting makeblastdb and blastp/blastn using one simple command.
+## Require
+- BLAST+ installed in $PATH
+- Python3
+- Work on both windows and unix-like systems
 ## Usage
 ```
 $ python3 blast_wrapper.py -h
@@ -46,7 +50,7 @@ $ python blast_wrapper.py -q query.faa -df database.faa
 ```
 or if you already have an established database:
 ```bash
-$ python blast_warpper.py -q query.faa -db blast+_database
+$ python blast_warpper.py -q query.faa -db database
 ```
 ## Moderate
 ```bash
@@ -70,7 +74,11 @@ $ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna -e 1
   
 
 # Chinese Usage中文使用说明
-
+blast-wrapper.py脚本能够通过简单的一行命令实现“建库”+“blast搜索”两个本地blast步骤。
+## 要求
+- Blast+已安装并存在环境变量$PATH中
+- 使用Python3
+- 在Windows和类unix系统中均可运行
 ## 初级
 
 大多数情况下，你只需要用如下的命令进行blastp：
@@ -80,7 +88,7 @@ $ python blast_wrapper.py -q query.faa -df database.faa
 ```
 如果你已经有一个通过blast+的makeblastdb建立的数据库，则:
 ```bash
-$ python blast_warpper.py -q query.faa -db blast+_database
+$ python blast_warpper.py -q query.faa -db database
 ```
 ## 中级
 ```bash
