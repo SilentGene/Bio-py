@@ -7,7 +7,7 @@ Usage:
 
 ## Simplest:
 $ python blast_wrapper.py -q query.faa -df database.faa
-or if you already have a established database:
+or if you already have an established database:
 $ python blast_warpper.py -q query.faa -db blast+_database
 
 ## Moderate:
