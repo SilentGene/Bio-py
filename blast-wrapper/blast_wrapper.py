@@ -93,6 +93,7 @@ def run_mkblastdb(fi, fo, tp):
                 ]
     cmd = ' '.join(cmd_para)
     try:
+        print(cmd, "\n...\n")
         os.system(cmd)
     except Exception as e:
         raise e
@@ -120,6 +121,7 @@ def run_blast(q, o,db, e, f, ms, n, b):
                 ]
     cmd = ' '.join(cmd_para)
     try:
+        print(cmd, "\n...\n")
         os.system(cmd)
     except Exception as e:
         raise e
