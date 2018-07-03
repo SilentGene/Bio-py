@@ -34,26 +34,27 @@ optional arguments:
                         the default value
 ```
 ## Sample Output
-qid	sid	ident%	aln_len	miss	gap	qstart	qend	sstart	send	qlen	slen	evalue	bitscore	qcov%	qseq
-HC_02247	HgcA_ND132	34.483	58	37	1	550	607	9	65	608	95	1.42e-08	43.1	9.4	MEAVE...
-HC_00217	HgcB_ND132	28.049	82	42	3	104	176	18	91	220	95	8.56e-06	33.5	32.7	METVE...
-HC_01133	MerA_RS	31.567	453	286	12	6	445	9	450	466	480	2.88e-55	182	94.2	MSKVH...
-HC_01413	MerA_WE	30.660	424	283	4	26	443	114	532	455	554	7.74e-63	204	91.6	MDFFD...
+qid | sid | ident% | aln_len | miss | gap | qstart | qend | sstart | send | qlen | slen | evalue | bitscore | qcov% | qseq
+--- | --- | ------ | ------- | ---- | --- | ------ | ---- | ------ | ---- | ---- | ---- | ------ | -------- | ----- | ----
+HC_02247 | HgcA_ND132 | 34.483 | 58 | 37 | 1 | 550 | 607 | 9 | 65 | 608 | 95 | 1.42e-08 | 43.1 | 9.4 | MEAVE...
+HC_00217 | HgcB_ND132 | 28.049 | 82 | 42 | 3 | 104 | 176 | 18 | 91 | 220 | 95 | 8.56e-06 | 33.5 | 32.7 | METVE...
+HC_01133 | MerA_RS | 31.567 | 453 | 286 | 12 | 6 | 445 | 9 | 450 | 466 | 480 | 2.88e-55 | 182 | 94.2 | MSKVH...
+HC_01413 | MerA_WE | 30.660 | 424 | 283 | 4 | 26 | 443 | 114 | 532 | 455 | 554 | 7.74e-63 | 204 | 91.6 | MDFFD...
 ## Simplest
-```
+```bash
 $ python blast_wrapper.py -q query.faa -df database.faa
 ```
 or if you already have an established database:
-```
+```bash
 $ python blast_warpper.py -q query.faa -db blast+_database
 ```
 ## Moderate
-```
+```bash
 $ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna -e 1e-10 -n 5
 ```
 
 ## Control freak
-```
+```bash
 $ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna -e 1e-10 -n 5 -ms 3 --no_qseq
 ```
 *Any change to output format by -f option may lead to errors when parsing output results, although it's up to you to make any change*
@@ -74,20 +75,20 @@ $ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna -e 1
 
 大多数情况下，你只需要用如下的命令进行blastp：
 
-```
+```bash
 $ python blast_wrapper.py -q query.faa -df database.faa
 ```
 如果你已经有一个通过blast+的makeblastdb建立的数据库，则:
-```
+```bash
 $ python blast_warpper.py -q query.faa -db blast+_database
 ```
 ## 中级
-```
+```bash
 $ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna -e 1e-10 -n 5
 ```
 
 ## 高级
-```
+```bash
 $ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna -e 1e-10 -n 5 -ms 3 --no_qseq
 ```
 *虽然脚本支持通过选项-f来更改输出样式，但任何样式的更改都可能会导致后续分析结果呈现的错误*
@@ -102,8 +103,9 @@ $ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna -e 1
 
 ## 输出示例
 
-qid	sid	ident%	aln_len	miss	gap	qstart	qend	sstart	send	qlen	slen	evalue	bitscore	qcov%	qseq
-HC_02247	HgcA_ND132	34.483	58	37	1	550	607	9	65	608	95	1.42e-08	43.1	9.4	MEAVE...
-HC_00217	HgcB_ND132	28.049	82	42	3	104	176	18	91	220	95	8.56e-06	33.5	32.7	METVE...
-HC_01133	MerA_RS	31.567	453	286	12	6	445	9	450	466	480	2.88e-55	182	94.2	MSKVH...
-HC_01413	MerA_WE	30.660	424	283	4	26	443	114	532	455	554	7.74e-63	204	91.6	MDFFD...
+qid | sid | ident% | aln_len | miss | gap | qstart | qend | sstart | send | qlen | slen | evalue | bitscore | qcov% | qseq
+--- | --- | ------ | ------- | ---- | --- | ------ | ---- | ------ | ---- | ---- | ---- | ------ | -------- | ----- | ----
+HC_02247 | HgcA_ND132 | 34.483 | 58 | 37 | 1 | 550 | 607 | 9 | 65 | 608 | 95 | 1.42e-08 | 43.1 | 9.4 | MEAVE...
+HC_00217 | HgcB_ND132 | 28.049 | 82 | 42 | 3 | 104 | 176 | 18 | 91 | 220 | 95 | 8.56e-06 | 33.5 | 32.7 | METVE...
+HC_01133 | MerA_RS | 31.567 | 453 | 286 | 12 | 6 | 445 | 9 | 450 | 466 | 480 | 2.88e-55 | 182 | 94.2 | MSKVH...
+HC_01413 | MerA_WE | 30.660 | 424 | 283 | 4 | 26 | 443 | 114 | 532 | 455 | 554 | 7.74e-63 | 204 | 91.6 | MDFFD...
