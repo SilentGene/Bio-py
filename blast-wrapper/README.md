@@ -71,7 +71,11 @@ $ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna -e 1
 - `--no_seqs` could used when you don't want the orignal query sequences appear in the final result. This may speed up the program in some extend.
 - 3 threads would be used by default, which could be modified by `-n` option.
 
-  
+## Tips
+If you happen to have a bunch of fasta files waiting for blast against a database, try to use the following bash command which will make your life simpler: (eg. In the fasta files directory, and all the query files have a suffix `.faa`)
+```bash
+$ for f in *.faa; do python3 blast_wrapper.py -q $f -df data.faa; done
+```
 
 # Chinese Usage中文使用说明
 blast-wrapper.py脚本能够通过简单的一行命令实现“建库”+“blast搜索”两个本地blast步骤。
@@ -108,6 +112,11 @@ $ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna -e 1
 - 如果指定了`-df`选项，则程序会在指定的fasta库相同路径下新建`DatabaseFasta.db`名称格式的数据库文件，如果该数据库被程序发现已经存在，则程序会自动跳过建库步骤，直接使用存在的数据库进行搜索。
 - 可以使用`--no_seqs`选项来取消在结果中显示查询序列的原序列，这可能会在一定程度上加快程序运行的速度。 
 - 程序默认的线程数是3个，可以使用`-n`选项来更改。
+##小技巧
+如果你有很多fasta文件想要对一个数据库进行比对，不妨试试下面的命令调用bash来帮助你循环调用脚本（假设当前路径在存放fasta文件的路径中，且所有的fasta文件有统一的后缀`.faa`：
+```bash
+$ for f in *.faa; do python3 blast_wrapper.py -q $f -df data.faa; done
+```
 
 ## 输出示例
 
