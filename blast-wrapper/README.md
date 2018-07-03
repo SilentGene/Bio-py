@@ -52,5 +52,12 @@ $ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna -e 1
 ```
 *Any change to output format by -f option may lead to errors when parsing output results, although it's up to you to make any change*
 
+## Note
+- blastp would be used if no algorithm is specified by option `-b`.
+- The option `-q` is required to specify the query fasta file. The option `-df` or `-db` is required to specify the target database in fasta famat or an database that has already made by makeblastdb command in blast+ software.
+- If no output is specified, the result would be created in the current direcoty according to the regular `QueryFileName_blast.out`.
+- if `-df` is specified, the database would be created in the same directory as the argument specified using the name `DatabaseFasta.db`. And if such a database already exsits, the script would skip the makeblastdb step.
+- `--no_seqs` could used when you don't want the orignal query sequences appear in the final result. This may speed up the program in some extend.
+
   
-  
+
