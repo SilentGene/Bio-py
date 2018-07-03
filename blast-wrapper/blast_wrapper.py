@@ -5,16 +5,16 @@ Required: BLAST+ installed in $PATH
 
 Usage:
 
-# Simplest:
+## Simplest:
 $ python blast_wrapper.py -q query.faa -df database.faa
 or if you already have a established database:
 $ python blast_warpper.py -q query.faa -db blast+_database
 
-# Moderate:
+## Moderate:
 $ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna \
 						  -e 1e-10 -n 5
 
-# Control freak:
+## Control freak:
 $ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna \
 						  -e 1e-10 -n 5 -ms 3 --no_qseq
 
