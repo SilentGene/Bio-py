@@ -43,7 +43,7 @@ parser.add_argument('-ms', '--max_target_seqs', metavar='num_sequences',
     dest='ms', type=float, default=1,
     help='specify the max_number of target seqs for hits per query (default=1)')
 parser.add_argument('-n', '--num_threads', metavar='num_cpu',
-    dest='n', type=float, default=3,
+    dest='n', type=int, default=3,
     help='specify the number of threads used by blast (default=3)')
 parser.add_argument('-b', '--blast_program', metavar='blast+ program',
     dest='b', type=str, default='blastp',
@@ -135,15 +135,15 @@ def run_blast(q, o,db, e, f, ms, n, b):
         raise e
 
 def creat_dict(fa):
-    f = open(fa, 'r')
-    dict = defaultdict(str)
-    name = ''
-    for line in f:
-        if line.startswith('>'):
-            name = line[1:-1].split()[0]
-            continue
-        dict[name] += line.strip()
-    return dict
+    with open(fa, 'r') as f:
+        dict = defaultdict(str)
+        name = ''
+        for line in f:
+            if line.startswith('>'):
+                name = line[1:-1].split()[0]
+                continue
+            dict[name] += line.strip()
+        return dict
 
 def blast_Parser(fi, fo, header, idt, qc, *dict):
     '''
