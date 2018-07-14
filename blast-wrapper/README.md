@@ -8,7 +8,7 @@ This script can also parse and filter the blast result by setting threshold of i
 ## Require
 - BLAST+ installed in `$PATH`
 - Using **Python3**
-- Work on both Windows and unix-like systems
+- Works both on Windows and unix-like systems
 ## Usage
 ```
 $ python3 blast_wrapper.py -h
