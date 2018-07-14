@@ -14,10 +14,10 @@ $ python POCP-matrix.py -i input_dir -o output_matrix.tab [-n 8] [--clean]
 ```
 ## Options
 
-`-i`: input directory contained more than 2 translated genome files (suffix: .faa)
-`-o`: output POCP matrix file
-`-n`: number of threads (optional, default: 3)
-`--clean`: blast output and databases created by this program will be removed (optional)
+- `-i`: input directory contained more than 2 translated genome files (suffix: .faa)
+- `-o`: output POCP matrix file
+- `-n`: number of threads (optional, default: 3)
+- `--clean`: blast output and databases created by this program will be removed (optional)
 
 ## Require
 - BLAST+ installed in `$PATH`
@@ -45,10 +45,10 @@ $ python POCP-matrix.py -i input_dir -o output_matrix.tab [-n 8] [--clean]
 ```
 ## 选项
 
-`-i`: 输入文件夹，至少含有两个基因组的蛋白质文件（后缀为.faa）
-`-o`: 输出POCP表格的文件名
-`-n`: 使用cpu核心数 (可选, 默认: 3)
-`--clean`: 该程序计算过程中产生的blast数据库与结果将会被清除 (可选)
+- `-i`: 输入文件夹，至少含有两个基因组的蛋白质文件（后缀为.faa）
+- `-o`: 输出POCP表格的文件名
+- `-n`: 使用cpu核心数 (可选, 默认: 3)
+- `--clean`: 该程序计算过程中产生的blast数据库与结果将会被清除 (可选)
 ## 要求
 - Blast+已安装并存在环境变量`$PATH`中
 - 使用**Python3**
