@@ -186,7 +186,7 @@ def main():
     tp = input_type(args.b)
 
     if not args.o:
-        args.o = args.q + '_blast.out'
+        args.o = os.path.basename(args.q) + '_blast.out'
 
     # Make blast database
     if args.df:
@@ -218,6 +218,8 @@ def main():
         blast_Parser(tempt_output, args.o, header, args.idt, args.qc, dict)
     # Remove temp file
     os.remove('blast_output.tmp')
+    print("\n", 'OUTPUT'.center(50, '*'))
+    print("Output File: {0}".format(args.o))
 
 
 if __name__ == '__main__':
