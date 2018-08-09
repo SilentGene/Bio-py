@@ -21,7 +21,8 @@ $ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna \
 *Any change to output format by -f option may lead to errors when parsing output results.
 """
 
-import os, sys
+import os
+import sys
 import argparse
 from collections import defaultdict
 
@@ -30,46 +31,50 @@ __contact__ = "heyu.lin@student.unimelb.edu.au"
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-q', '--query', metavar='query_fasta', dest='q',
-    type=str, required=True)
+                    type=str, required=True)
 parser.add_argument('-o', '--output', metavar='output', dest='o',
-    type=str)
+                    type=str)
 parser.add_argument('-df', '--database_fasta', metavar='database_fasta',
-    dest='df', type=str, help='fasta file to be used as database')
+                    dest='df', type=str,
+                    help='fasta file to be used as database')
 parser.add_argument('-db', '--database', metavar='database',
-    dest='db', type=str, help='blast database which has already been made')
+                    dest='db', type=str,
+                    help='blast database which has already been made')
 parser.add_argument('-e', '--evalue', metavar='max_e-value', dest='e',
-    type=float, default=1e-5, help='threshod e-value for blast (default=1e-5)')
+                    type=float, default=1e-5,
+                    help='threshod e-value for blast (default=1e-5)')
 parser.add_argument('-ms', '--max_target_seqs', metavar='num_sequences',
-    dest='ms', type=float, default=1,
-    help='specify the max_number of target seqs for hits per query (default=1)')
+                    dest='ms', type=float, default=1,
+                    help='specify the max_number of target seqs for hits per query (default=1)')
 parser.add_argument('-n', '--num_threads', metavar='num_cpu',
-    dest='n', type=int, default=3,
-    help='specify the number of threads used by blast (default=3)')
+                    dest='n', type=int, default=3,
+                    help='specify the number of threads used by blast (default=3)')
 parser.add_argument('-b', '--blast_program', metavar='blast+ program',
-    dest='b', type=str, default='blastp',
-    help='specify the blast program (default=blastp)')
+                    dest='b', type=str, default='blastp',
+                    help='specify the blast program (default=blastp)')
 parser.add_argument('-id', '--identity', metavar='identity_threshold',
-    dest='idt', type=float, default=0,
-    help='specify the threshold of identity (default=0)')
+                    dest='idt', type=float, default=0,
+                    help='specify the threshold of identity (default=0)')
 parser.add_argument('-qc', '--qcov', metavar='coverage_threshold',
-    dest='qc', type=float, default=0,
-    help='specify the threshold of query coverage (default=0)')
+                    dest='qc', type=float, default=0,
+                    help='specify the threshold of query coverage (default=0)')
 parser.add_argument('--no_qseq', metavar='hide qseq column',
-    dest='nq', nargs="?", const=True, default=False,
-    help='no query sequences will be showed if this argument is added')
+                    dest='nq', nargs="?", const=True, default=False,
+                    help='no query sequences will be showed if this argument is added')
 # You're not going to like to change this default output format.
 # Any change to this outfmt argument may lead to exceptions for query coverage calculation
 parser.add_argument('-f', '--outfmt', metavar='output_format*', dest='f', type=str,
-    default='"6 qseqid sseqid pident length mismatch gapopen qstart qend ' \
-    + 'sstart send qlen slen evalue bitscore"',
-    help='outfmt defined by blast+, it is dangerous to change the default value')
+                    default='"6 qseqid sseqid pident length mismatch gapopen ' \
+                    + 'qstart qend sstart send qlen slen evalue bitscore"',
+                    help='outfmt defined by blast+, it is dangerous to change the default value')
 args=parser.parse_args()
+
 
 def input_type(b):
     '''
     return blast database type (prot or nucl)
     '''
-    if  b== 'blastp':
+    if b== 'blastp':
         tp = 'prot'
         return tp
     elif b == 'blastn':
@@ -78,11 +83,13 @@ def input_type(b):
     else:
         sys.exit("Error: -b argument should only be 'blastp' or 'blastn'!")
 
+
 def database_exist(db):
     prot_databases = db + '.phr'
     nucl_databases = db + '.nhr'
     if os.path.exists(prot_databases) or os.path.exists(nucl_databases):
         return True
+
 
 def run_mkblastdb(fi, fo, tp):
     '''
@@ -99,13 +106,14 @@ def run_mkblastdb(fi, fo, tp):
                 ]
     cmd = ' '.join(cmd_para)
     try:
-        print("\n", 'Make Blast Database'.center(50,'*'))
+        print("\n", 'Make Blast Database'.center(50, '*'))
         print(cmd, "\n")
         os.system(cmd)
     except Exception as e:
         raise e
 
-def run_blast(q, o,db, e, f, ms, n, b):
+
+def run_blast(q, o, db, e, f, ms, n, b):
     '''
     q: query
     o: output
@@ -128,11 +136,12 @@ def run_blast(q, o,db, e, f, ms, n, b):
                 ]
     cmd = ' '.join(cmd_para)
     try:
-        print("\n", 'BLAST Searching'.center(50,'*'))
+        print("\n", 'BLAST Searching'.center(50, '*'))
         print(cmd, "\n")
         os.system(cmd)
     except Exception as e:
         raise e
+
 
 def creat_dict(fa):
     with open(fa, 'r') as f:
@@ -145,18 +154,19 @@ def creat_dict(fa):
             dict[name] += line.strip()
         return dict
 
+
 def blast_Parser(fi, fo, header, idt, qc, *dict):
     '''
     fi: blast output (format as defined in this script)
     fo: final output
     dict: dict that created from query fasta file (used to extract hit sequences)
     '''
-    seq_dict = {} # initialize a dict to index query sequences
+    seq_dict = {}  # initialize a dict to index query sequences
     if dict:
         seq_dict = dict[0]
 
     with open(fi) as input, open(fo, 'w') as output:
-        output.write( "\t".join(header) + "\n" )
+        output.write("\t".join(header) + "\n")
         for line in input.readlines():
             items = line.strip().split("\t")
             qstart, qend, qlen = map(float, (items[6], items[7], items[10]))
@@ -168,7 +178,8 @@ def blast_Parser(fi, fo, header, idt, qc, *dict):
             if seq_dict:
                 qid = items[0]
                 items.append(seq_dict[qid])
-            output.write( "\t".join(items) + "\n" )
+            output.write("\t".join(items) + "\n")
+
 
 def main():
     tp = input_type(args.b)
@@ -195,17 +206,18 @@ def main():
     # Parse blast output
     header = [
                 'qid', 'sid', 'ident%', 'aln_len', 'miss',
-                'gap', 'qstart', 'qend', 'sstart','send',
+                'gap', 'qstart', 'qend', 'sstart', 'send',
                 'qlen', 'slen', 'evalue', 'bitscore', 'qcov%', 'qseq'
             ]
     # if the --no_qseq option was specified, there would be no qseq column.
-    if args.nq == True:
+    if args.nq:
         header.remove('qseq')
-        blast_Parser(tempt_output, args.o ,header, args.idt, args.qc)
+        blast_Parser(tempt_output, args.o, header, args.idt, args.qc)
     else:
-        blast_Parser(tempt_output, args.o ,header, args.idt, args.qc, dict)
+        blast_Parser(tempt_output, args.o, header, args.idt, args.qc, dict)
     # Remove temp file
     os.remove('blast_output.tmp')
+
 
 if __name__ == '__main__':
     main()
