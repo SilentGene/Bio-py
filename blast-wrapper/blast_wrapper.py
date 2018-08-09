@@ -44,7 +44,7 @@ parser.add_argument('-e', '--evalue', metavar='max_e-value', dest='e',
                     type=float, default=1e-5,
                     help='threshod e-value for blast (default=1e-5)')
 parser.add_argument('-ms', '--max_target_seqs', metavar='num_sequences',
-                    dest='ms', type=float, default=1,
+                    dest='ms', type=int, default=1,
                     help='specify the max_number of target seqs for hits per query (default=1)')
 parser.add_argument('-n', '--num_threads', metavar='num_cpu',
                     dest='n', type=int, default=3,
@@ -63,18 +63,19 @@ parser.add_argument('--no_qseq', metavar='hide qseq column',
                     help='no query sequences will be showed if this argument is added')
 # You're not going to like to change this default output format.
 # Any change to this outfmt argument may lead to exceptions for query coverage calculation
-parser.add_argument('-f', '--outfmt', metavar='output_format*', dest='f', type=str,
+parser.add_argument('-f', '--outfmt', metavar='output_format*',
+                    dest='f', type=str,
                     default='"6 qseqid sseqid pident length mismatch gapopen ' \
                     + 'qstart qend sstart send qlen slen evalue bitscore"',
                     help='outfmt defined by blast+, it is dangerous to change the default value')
-args=parser.parse_args()
+args = parser.parse_args()
 
 
 def input_type(b):
     '''
     return blast database type (prot or nucl)
     '''
-    if b== 'blastp':
+    if b == 'blastp':
         tp = 'prot'
         return tp
     elif b == 'blastn':
