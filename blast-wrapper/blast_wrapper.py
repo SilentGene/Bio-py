@@ -114,14 +114,13 @@ def run_mkblastdb(fi, fo, tp):
         raise e
 
 
-def run_blast(q, o, db, e, f, ms, n, b):
+def run_blast(q, o, db, e, f, n, b):
     '''
     q: query
     o: output
     db: database
     e: evalue
     f: outfmt
-    ms: max_target_seqs
     n: num_threads
     b: blast program
     '''
@@ -132,7 +131,6 @@ def run_blast(q, o, db, e, f, ms, n, b):
                 '-db', db,
                 '-evalue', str(e),
                 '-outfmt', f,
-                '-max_target_seqs', str(ms),
                 '-num_threads', str(n)
                 ]
     cmd = ' '.join(cmd_para)
@@ -156,11 +154,11 @@ def creat_dict(fa):
         return dict
 
 
-def blast_Parser(fi, fo, header, idt, qc, *dict):
+def blast_Parser(fi, fo, header, idt, qc, ms, *dict):
     '''
     fi: blast output (format as defined in this script)
     fo: final output
-    dict: dict that created from query fasta file (used to extract hit sequences)
+    dict: dictionary created from query fasta (used to extract hit sequences)
     '''
     seq_dict = {}  # initialize a dict to index query sequences
     if dict:
@@ -168,8 +166,21 @@ def blast_Parser(fi, fo, header, idt, qc, *dict):
 
     with open(fi) as input, open(fo, 'w') as output:
         output.write("\t".join(header) + "\n")
+        times = 0  # initialize the hit number
+        quer_last = ''  # initialize the hit sequence
         for line in input.readlines():
             items = line.strip().split("\t")
+            quer = items[0]
+            if quer == quer_last:
+                times += 1
+                print(times)
+                if times > ms:
+                    print('jump out')
+                    continue
+            else:
+                quer_last = quer
+                times = 1
+                print(times)
             qstart, qend, qlen = map(float, (items[6], items[7], items[10]))
             qcov = 100 * (qend - qstart) / qlen
             ident = float(items[2])
@@ -199,7 +210,7 @@ def main():
 
     # Run blast program
     tempt_output = 'blast_output.tmp'
-    run_blast(args.q, tempt_output, args.db, args.e, args.f, args.ms, args.n, args.b)
+    run_blast(args.q, tempt_output, args.db, args.e, args.f, args.n, args.b)
 
     # creat dict from query fasta, in order to extract sequencs later
     dict = creat_dict(args.q)
@@ -213,9 +224,9 @@ def main():
     # if the --no_qseq option was specified, there would be no qseq column.
     if args.nq:
         header.remove('qseq')
-        blast_Parser(tempt_output, args.o, header, args.idt, args.qc)
+        blast_Parser(tempt_output, args.o, header, args.idt, args.qc, args.ms)
     else:
-        blast_Parser(tempt_output, args.o, header, args.idt, args.qc, dict)
+        blast_Parser(tempt_output, args.o, header, args.idt, args.qc, args.ms, dict)
     # Remove temp file
     os.remove('blast_output.tmp')
     print("\n", 'OUTPUT'.center(50, '*'))
