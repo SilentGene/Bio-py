@@ -173,14 +173,11 @@ def blast_Parser(fi, fo, header, idt, qc, ms, *dict):
             quer = items[0]
             if quer == quer_last:
                 times += 1
-                print(times)
                 if times > ms:
-                    print('jump out')
                     continue
             else:
                 quer_last = quer
                 times = 1
-                print(times)
             qstart, qend, qlen = map(float, (items[6], items[7], items[10]))
             qcov = 100 * (qend - qstart) / qlen
             ident = float(items[2])
