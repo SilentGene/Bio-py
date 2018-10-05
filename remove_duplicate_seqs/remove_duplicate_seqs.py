@@ -16,6 +16,8 @@ import sys
 import textwrap
 from Bio import SeqIO
 
+__author__ = "Heyu Lin"
+__contact__ = "heyu.lin@student.unimelb.edu.au"
 
 def arg_parser(arr):
     if arr[1] != '--id' and arr[1] != '--seq':
