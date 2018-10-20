@@ -77,10 +77,11 @@ $ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna -e 1
 - blastp would be used if no algorithm is specified by option `-b blastn`.
 - The option `-q` is required to specify the query fasta file. The option `-df` or `-db` is required to specify the target database in fasta famat or an database that has already made by makeblastdb command in blast+ software.
 - If no output is specified by `-o`, the result would be created in the current direcoty according to the regular `QueryFileName_blast.out`.
-- if `-df` is specified, the database would be created in the same directory as the argument specified using the name `DatabaseFasta.db`. And if such a database already exsits, the script would skip the makeblastdb step.
+- If `-df` is specified, the database would be created in the same directory as the argument specified using the name `DatabaseFasta.db`. And if such a database already exsits, the script would skip the makeblastdb step.
 - Using `-id` and `-qc` to set the threshold of **identity** and **query coverage**, respectively.
 - `--no_seqs` could used when you don't want the orignal query sequences appear in the final result. This may speed up the program in some extend.
-- 3 threads would be used by default, which could be modified by `-n` option.
+- 3 threads would be used by default, which could be modified by the `-n` option.
+- A custom function has been developed to take the place of the original `-max_target_seqs` option, since the latter one has been found to only generate the first hit, not the best hit.
 
 ## Tips
 If you happen to have a bunch of fasta files waiting for blast against a database, try to use the following bash command which will make your life simpler: (eg. In the fasta files directory, and all the query files have a suffix `.faa`)
@@ -127,6 +128,7 @@ $ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna -e 1
 - 通过`-id`和`-qc`分别指定**一致性**和**覆盖度**的最小值以实现对结果的过滤
 - 可以使用`--no_seqs`选项来取消在结果中显示查询序列的原序列，这可能会在一定程度上加快程序运行的速度。 
 - 程序默认的线程数是3个，可以使用`-n`选项来更改。
+- 编写了自定义的函数来代替原生`-max_target_seqs` 参数来筛选出最优的结果。因为原生参数实际只产出数据库中第一个匹配序列，而不是最优的序列。
 ##小技巧
 如果你有很多fasta文件想要对一个数据库进行比对，不妨试试下面的命令调用bash来帮助你循环调用脚本（假设当前路径在存放fasta文件的路径中，且所有的fasta文件有统一的后缀`.faa`：
 ```bash
