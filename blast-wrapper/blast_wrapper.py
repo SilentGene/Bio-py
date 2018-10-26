@@ -190,6 +190,13 @@ def blast_Parser(fi, fo, header, idt, qc, ms, *dict):
             output.write("\t".join(items) + "\n")
 
 
+def review_output(file):
+    with open(file, 'r+') as fi:
+        if len(fi.readlines()) == 1:
+            fi.seek(0)
+            fi.truncate()
+
+
 def main():
     tp = input_type(args.b)
 
@@ -209,7 +216,7 @@ def main():
     tempt_output = 'blast_output.tmp'
     run_blast(args.q, tempt_output, args.db, args.e, args.f, args.n, args.b)
 
-    # creat dict from query fasta, in order to extract sequencs later
+    # Creat dict from query fasta, in order to extract sequencs later
     dict = creat_dict(args.q)
 
     # Parse blast output
@@ -218,7 +225,7 @@ def main():
                 'gap', 'qstart', 'qend', 'sstart', 'send',
                 'qlen', 'slen', 'evalue', 'bitscore', 'qcov%', 'qseq'
             ]
-    # if the --no_qseq option was specified, there would be no qseq column.
+    # If the --no_qseq option was specified, there would be no qseq column.
     if args.nq:
         header.remove('qseq')
         blast_Parser(tempt_output, args.o, header, args.idt, args.qc, args.ms)
@@ -226,6 +233,10 @@ def main():
         blast_Parser(tempt_output, args.o, header, args.idt, args.qc, args.ms, dict)
     # Remove temp file
     os.remove('blast_output.tmp')
+
+    # Clear the lonely header line if no hit was found
+    review_output(args.o)
+
     print("\n", 'OUTPUT'.center(50, '*'))
     print("Output File: {0}".format(args.o))
 
