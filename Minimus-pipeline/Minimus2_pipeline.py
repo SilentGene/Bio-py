@@ -30,8 +30,9 @@ args = parser.parse_args()
 
 def create_dir(directory):
     dirnm = os.path.dirname(directory)
-    if not os.path.exists(dirnm):
-        os.makedirs(dirnm)
+    if dirnm != '':
+        if not os.path.exists(dirnm):
+            os.makedirs(dirnm)
 
 
 def seq_num(fasta_file):
