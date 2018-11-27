@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 """
-This pipline is described in the Amos official website:
+This pipeline is described in the Amos official website:
 http://amos.sourceforge.net/wiki/index.php/Minimus2
 All the parameters are as default
 

@@ -27,7 +27,7 @@ import argparse
 from collections import defaultdict
 
 __author__ = "Heyu Lin"
-__contact__ = "heyu.lin@student.unimelb.edu.au"
+__contact__ = "heyu.lin(AT)student.unimelb.edu.au"
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-q', '--query', metavar='query_fasta', dest='q',
