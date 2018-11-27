@@ -1,15 +1,15 @@
 # Minimus2 Pipeline
-Using Minimus2 (a component of `Amos`) to merge two sets of genome contigs.
+Using `Minimus2` (a component of `Amos`) to merge two sets of genome contigs.
 
-This pipeline is described in the Amos official website:
-http://amos.sourceforge.net/wiki/index.php/Minimus2
+This pipeline is described in the Amos official website: http://amos.sourceforge.net/wiki/index.php/Minimus2
+
 All the parameters are as default.
 
 ## Usage
 ```bash
 $ python Minimus2_pipleline.py -s1 S1.fas -s2 S2.fas -o output_prefix
 ```
-##Sample
+## Sample
 
 ```bash
 $ python Minimus2_pipeline.py -s1 seq1.fas -s2 seq2.fas -o Minimus2_out/seq1-2
@@ -42,7 +42,7 @@ Minimus2是Amos套件中的一个程序，主要用于进行两个基因组文�
 ```bash
 $ python Minimus2_pipleline.py -s1 S1.fas -s2 S2.fas -o output_prefix
 ```
-##示例
+## 示例
 
 ```bash
 $ python Minimus2_pipeline.py -s1 seq1.fas -s2 seq2.fas -o Minimus2_out/seq1-2
