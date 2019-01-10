@@ -15,7 +15,7 @@ Now you can choose to remove 'idmapping.dat.gz'
 Step2: Retrieve K numbers according to the UniProtKB IDs of proteins
 $ python3 gbk2kegg.py -i input.gbk -d idmapping_KO.tab.gz -o output.txt
 
-This script will produce a json database file in the same folder of
+This script will produce a json format database in the same folder of
 idmapping_KO.tab.gz for reuse, which may speed up the program when
 running next time.
 """
