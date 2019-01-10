@@ -10,7 +10,7 @@ Usage:
 Step1: Download and initialize the cross-reference database provided by UniProt
 $ wget ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/idmapping/idmapping.dat.gz
 $ gzip -dc idmapping.dat.gz | awk '{if($2=="KO") print $1,$3}' OFS="\t" | gzip > idmapping_KO.tab.gz
-Now you can choose to remove 'idmapping.dat.gz'
+You could choose to remove 'idmapping.dat.gz' now.
 
 Step2: Retrieve K numbers according to the UniProtKB IDs of proteins
 $ python3 gbk2kegg.py -i input.gbk -d idmapping_KO.tab.gz -o output.txt
