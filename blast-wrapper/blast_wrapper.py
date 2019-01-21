@@ -75,14 +75,14 @@ def input_type(b):
     '''
     return blast database type (prot or nucl)
     '''
-    if b == 'blastp':
+    if b == 'blastp' or b == 'blastx':
         tp = 'prot'
         return tp
-    elif b == 'blastn':
+    elif b == 'blastn' or b == 'tblastn':
         tp = 'nucl'
         return tp
     else:
-        sys.exit("Error: -b argument should only be 'blastp' or 'blastn'!")
+        sys.exit("Error: -b argument should only be 'blastp/blastn/blastx/tblastn'!")
 
 
 def database_exist(db):
