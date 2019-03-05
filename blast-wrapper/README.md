@@ -89,7 +89,16 @@ If you happen to have a bunch of fasta files waiting for blast against a databas
 $ for f in *.faa; do python3 blast_wrapper.py -q $f -df data.faa; done
 ```
 
+You can use the script `blastout2fasta.py` provided along this blast wrapper to convert the output to `fasta` format.
+
+```bash
+$ python3 blastout2fasta.py blast.out > blast_out.fa
+```
+
+
+
 # Chinese Usage 中文使用说明
+
 blast-wrapper.py脚本能够通过简单的一行命令实现**建库**和**blast搜索**两个本地blast步骤。
 
 使用该脚本还可以帮助我们以更优雅的方式阅读blast的结果。得到的表格不仅具有清晰的表头信息，且经过计算的**覆盖度**和**原查询序列**均可以显示在结果中，便于进一步分析解读。
@@ -129,11 +138,7 @@ $ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna -e 1
 - 可以使用`--no_seqs`选项来取消在结果中显示查询序列的原序列，这可能会在一定程度上加快程序运行的速度。 
 - 程序默认的线程数是3个，可以使用`-n`选项来更改。
 - 编写了自定义的函数来代替原生`-max_target_seqs` 参数来筛选出最优的结果。因为原生参数实际只产出数据库中第一个匹配序列，而不是最优的序列。
-##小技巧
-如果你有很多fasta文件想要对一个数据库进行比对，不妨试试下面的命令调用bash来帮助你循环调用脚本（假设当前路径在存放fasta文件的路径中，且所有的fasta文件有统一的后缀`.faa`：
-```bash
-$ for f in *.faa; do python3 blast_wrapper.py -q $f -df data.faa; done
-```
+
 
 ## 输出示例
 
@@ -143,3 +148,14 @@ HC_02247 | HgcA_ND132 | 34.483 | 58 | 37 | 1 | 550 | 607 | 9 | 65 | 608 | 95 | 1
 HC_00217 | HgcB_ND132 | 28.049 | 82 | 42 | 3 | 104 | 176 | 18 | 91 | 220 | 95 | 8.56e-06 | 33.5 | 32.7 | METVE...
 HC_01133 | MerA_RS | 31.567 | 453 | 286 | 12 | 6 | 445 | 9 | 450 | 466 | 480 | 2.88e-55 | 182 | 94.2 | MSKVH...
 HC_01413 | MerA_WE | 30.660 | 424 | 283 | 4 | 26 | 443 | 114 | 532 | 455 | 554 | 7.74e-63 | 204 | 91.6 | MDFFD...
+
+##小技巧
+
+如果你有很多fasta文件想要对一个数据库进行比对，不妨试试下面的命令调用bash来帮助你循环调用脚本（假设当前路径在存放fasta文件的路径中，且所有的fasta文件有统一的后缀`.faa`：
+```bash
+$ for f in *.faa; do python3 blast_wrapper.py -q $f -df data.faa; done
+```
+你可以使用脚本`blastout2fasta.py`来将`blast_wrapper.py`的结果转换成对应的`fasta`格式：
+```bash
+$ python3 blastout2fasta.py blast.out > blast_out.fa
+```
