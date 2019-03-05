@@ -34,7 +34,7 @@ $python3 remove_duplicate_seqs.py --seq input.fa [input2.fa ...] > output.fa
 - 需要调用`Biopython`
 - 在Windows和类Unix系统中均可运行
 
-##使用
+## 使用
 
 通过序列的id号来过滤:
 ```bash
