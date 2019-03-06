@@ -3,7 +3,7 @@
 """
 Description:
 KO entries (K numbers in KEGG annotation) assignment *in batch mode*
-accroding to UniProtKB ID in `Prokka` *.gbk files
+according to UniProtKB ID in `Prokka` *.gbk files
 
 Usage:
 
