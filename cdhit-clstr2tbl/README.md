@@ -49,7 +49,7 @@ $ python3 cdhit_clstr2tbl.py input.clstr > out.tab
 2   13708aa, >gene5... at 100.00%
 ```
 
-##输出文件示例
+## 输出文件示例
 
 | gene1 | gene1 |
 | ----- | ----- |
