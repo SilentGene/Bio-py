@@ -21,12 +21,12 @@ $ python3 cdhit_clstr2tbl.py input.clstr > out.tab
 
 Output Sample
 
-| gene1 | gene1 |
-| ----- | ----- |
-| gene2 | gene1 |
-| gene3 | gene4 |
-| gene4 | gene4 |
-| gene5 | gene4 |
+| gene_id | representative |
+| ------- | -------------- |
+| gene1   | gene1          |
+| gene2   | gene4          |
+| gene3   | gene4          |
+| gene4   | gene4          |
 
 # Chinese Usage 中文使用说明
 输入一个`CD-HIT`文件产出的`clstr`文件，此脚本可以将其转换为一个tab分隔的表格文件，第一列是每个序列的名称，第二列是每个序列对应的代表序列的名称。
@@ -51,9 +51,9 @@ $ python3 cdhit_clstr2tbl.py input.clstr > out.tab
 
 ## 输出文件示例
 
-| gene1 | gene1 |
-| ----- | ----- |
-| gene2 | gene1 |
-| gene3 | gene4 |
-| gene4 | gene4 |
-| gene5 | gene4 |
+| gene_id | representative |
+| ------- | -------------- |
+| gene1   | gene1          |
+| gene2   | gene4          |
+| gene3   | gene4          |
+| gene4   | gene4          |

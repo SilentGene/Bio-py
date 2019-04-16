@@ -19,6 +19,7 @@ The input .clstr file looks like:
 2   13708aa, >gene5... at 100.00%
 
 The output table file looks like:
+gene_id representative
 gene1 gene1
 gene2 gene1
 gene3 gene4
@@ -37,6 +38,9 @@ match_header = re.compile(r'>(.*?)\.')
 
 header_list = []
 repre = ''
+
+# print the header
+print('gene_id' + '\t' + 'representative')
 
 with open(in_file) as input:
     for line in input.readlines():
