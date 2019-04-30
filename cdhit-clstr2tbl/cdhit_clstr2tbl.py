@@ -14,17 +14,21 @@ The input .clstr file looks like:
 0   14739aa, >gene1... *
 1   656aa, >gene2... at 99.85%
 >Cluster 1
-0   66aa, >gene3... at 100.00%
-1   13708aa, >gene4... *
-2   13708aa, >gene5... at 100.00%
+0   13708aa, >gene3... *
+>Cluster 2
+0   66aa, >gene4... at 100.00%
+1   13708aa, >gene5... *
+2   13708aa, >gene6... at 100.00%
+
 
 The output table file looks like:
 gene_id representative
 gene1 gene1
 gene2 gene1
-gene3 gene4
-gene4 gene4
-gene5 gene4
+gene3 gene3
+gene4 gene5
+gene5 gene5
+gene6 gene5
 """
 import re
 import sys
@@ -34,7 +38,7 @@ __contact__ = "heyu.lin(AT)student.unimelb.edu.au"
 
 in_file = sys.argv[1]
 
-match_header = re.compile(r'>(.*?)\.')
+match_header = re.compile(r'>(.*?)\.{3}')
 
 header_list = []
 repre = ''
