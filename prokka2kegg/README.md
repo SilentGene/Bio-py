@@ -14,7 +14,7 @@ You can also download my initialized database from my repo, then you can skip to
 
 ### Step 2: Retrieve K numbers according to the UniProtKB IDs of proteins
 ```bash
-$ python3 gbk2kegg.py -i input.gbk -d idmapping_KO.tab.gz -o output.txt
+$ python3 prokka2kegg.py -i input.gbk -d idmapping_KO.tab.gz -o output.txt
 ```
 
 *This script will produce a json format database in the same folder of idmapping_KO.tab.gz for reuse, which may speed up the program when running next time.*
@@ -58,7 +58,7 @@ $ gzip -dc idmapping.dat.gz | awk '{if($2=="KO") print ​$1,$3}' OFS="\t" | gzi
 ```
 ### 第二步： 通过每个ORF的UniProtKB IDs在数据库中查询对应的KO号
 ```bash
-$ python3 gbk2kegg.py -i input.gbk -d idmapping_KO.tab.gz -o output.txt
+$ python3 prokka2kegg.py -i input.gbk -d idmapping_KO.tab.gz -o output.txt
 ```
 
 *脚本会在idmapping_KO.tab.gz所在的文件夹下产生一个json文件来加快下一次调用数据库查询时的速度。*
