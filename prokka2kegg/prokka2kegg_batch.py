@@ -59,7 +59,7 @@ def gbk_parser(gbk):
             if line.startswith(' ' * 21 + '/locus_tag=') and cds == 1:
                 locus_tag = pattern_locus.findall(line)[0]
                 locus = 1  # locus_tag was read
-            if line.startswith(' ' * 21 + '/inference="similar') and locus == 1:
+            if line.startswith(' ' * 21 + '/inference="similar to AA sequence:UniProtKB') and locus == 1:
                 uniprotkb = pattern_uniprotkb.findall(line)[0]
                 arr.append([locus_tag, uniprotkb])
                 cds = 0
