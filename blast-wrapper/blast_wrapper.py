@@ -25,6 +25,7 @@ import os
 import sys
 import argparse
 from collections import defaultdict
+import random
 
 __author__ = "Heyu Lin"
 __contact__ = "heyu.lin(AT)student.unimelb.edu.au"
@@ -212,8 +213,10 @@ def main():
         args.db = database_file
         print('DB: ', args.db)
 
-    # Run blast program
-    tempt_output = 'blast_output.tmp'
+    # Storing temporary blast result
+    tempt_output = 'blast_output' + 'random.randint(0,999)' + '.tmp'
+
+    # => Run blast program
     run_blast(args.q, tempt_output, args.db, args.e, args.f, args.n, args.b)
 
     # Creat dict from query fasta, in order to extract sequencs later
@@ -232,7 +235,7 @@ def main():
     else:
         blast_Parser(tempt_output, args.o, header, args.idt, args.qc, args.ms, dict)
     # Remove temp file
-    os.remove('blast_output.tmp')
+    os.remove(tempt_output)
 
     # Clear the lonely header line if no hit was found
     review_output(args.o)
