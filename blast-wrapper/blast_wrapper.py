@@ -214,7 +214,7 @@ def main():
         print('DB: ', args.db)
 
     # Storing temporary blast result
-    tempt_output = 'blast_output' + 'random.randint(0,999)' + '.tmp'
+    tempt_output = 'blast_output' + str(random.randint(0,999)) + '.tmp'
 
     # => Run blast program
     run_blast(args.q, tempt_output, args.db, args.e, args.f, args.n, args.b)
