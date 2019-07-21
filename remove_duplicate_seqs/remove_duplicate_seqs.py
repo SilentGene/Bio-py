@@ -19,6 +19,7 @@ from Bio import SeqIO
 __author__ = "Heyu Lin"
 __contact__ = "heyu.lin@student.unimelb.edu.au"
 
+
 def arg_parser(arr):
     if arr[1] != '--id' and arr[1] != '--seq':
         raise Exception('Please indicate the filter method by --id or --seq')
@@ -55,4 +56,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
