@@ -25,7 +25,6 @@ import os
 import sys
 import argparse
 from collections import defaultdict
-import random
 
 __author__ = "Heyu Lin"
 __contact__ = "heyu.lin(AT)student.unimelb.edu.au"
@@ -197,7 +196,6 @@ def review_output(file):
             fi.seek(0)
             fi.truncate()
 
-
 def main():
     tp = input_type(args.b)
 
@@ -214,7 +212,7 @@ def main():
         print('DB: ', args.db)
 
     # Storing temporary blast result
-    tempt_output = 'blast_output' + str(random.randint(0,9999)) + '.tmp'
+    tempt_output = str(args.o) + '_blast.tmp'
 
     # => Run blast program
     run_blast(args.q, tempt_output, args.db, args.e, args.f, args.n, args.b)
