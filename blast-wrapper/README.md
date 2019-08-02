@@ -1,5 +1,5 @@
 # blast-wrapper
-Pipleline for conducting **makeblastdb** and **blastp/blastn** using one simple command.
+Pipeline for conducting **makeblastdb** and **blastp/blastn/blastx/tblastn** using one simple command.
 
 Show blast results in a **more elegant way**. Not only table headers, but also **query coverages** and the **original query sequences** were calculated and showed in the results.
 
@@ -69,7 +69,7 @@ $ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna -e 1
 
 ## Control freak
 ```bash
-$ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna -e 1e-10 -id 30 -qc 50 -n 5 -ms 3 --no_qseq
+$ python blast_wrapper.py -b blastx -q query.fna -o output -df database.faa -e 1e-10 -id 30 -qc 50 -n 5 -ms 3 --no_qseq
 ```
 *Any change to output format by -f option may lead to errors when parsing output results, although it's up to you to make any change*
 
