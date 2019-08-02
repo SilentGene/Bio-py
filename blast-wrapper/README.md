@@ -84,12 +84,12 @@ $ python blast_wrapper.py -b blastn -q query.fna -o output -df database.fna -e 1
 - A custom function has been developed to take the place of the original `-max_target_seqs` option, since the latter one has been found to only generate the first hit, not the best hit.
 
 ## Tips
-If you happen to have a bunch of fasta files waiting for blast against a database, try to use the following bash command which will make your life simpler: (eg. In the fasta files directory, and all the query files have a suffix `.faa`)
+If you happen to have a bunch of fasta files waiting for blast against a single database, try out the following bash command to make your life simpler: (eg. you are in the fasta files directory, and all the query files have a suffix `.faa`)
 ```bash
 $ for f in *.faa; do python3 blast_wrapper.py -q $f -df data.faa; done
 ```
 
-You can use the script `blastout2fasta.py` provided along this blast wrapper to convert the output to `fasta` format.
+You can use the script `blastout2fasta.py` provided along with this blast wrapper to convert the output to `fasta` format.
 
 ```bash
 $ python3 blastout2fasta.py blast.out > blast_out.fa
@@ -149,7 +149,7 @@ HC_00217 | HgcB_ND132 | 28.049 | 82 | 42 | 3 | 104 | 176 | 18 | 91 | 220 | 95 | 
 HC_01133 | MerA_RS | 31.567 | 453 | 286 | 12 | 6 | 445 | 9 | 450 | 466 | 480 | 2.88e-55 | 182 | 94.2 | MSKVH...
 HC_01413 | MerA_WE | 30.660 | 424 | 283 | 4 | 26 | 443 | 114 | 532 | 455 | 554 | 7.74e-63 | 204 | 91.6 | MDFFD...
 
-##小技巧
+## 小技巧
 
 如果你有很多fasta文件想要对一个数据库进行比对，不妨试试下面的命令调用bash来帮助你循环调用脚本（假设当前路径在存放fasta文件的路径中，且所有的fasta文件有统一的后缀`.faa`：
 ```bash
