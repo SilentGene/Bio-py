@@ -174,21 +174,22 @@ if __name__ == "__main__":
             data[query][targ] = ident
 
     df = pd.DataFrame(data).sort_index().sort_index(axis=1)
+    df.to_csv(output_table, sep='\t')
+
     mean_ident = df.mean(skipna = True).mean()
 
-    max_idx = df.stack().argmax()
-    max_qur_tar = df.stack().index[max_idx]
+    max_qur_tar = df.stack().idxmax()
     max_ident = df.loc[max_qur_tar]
-    min_idx = df.stack().argmin()
-    min_qur_tar = df.stack().index[min_idx]
+    min_qur_tar = df.stack().idxmin()
     min_ident = df.loc[min_qur_tar]
+
 
     print('\n***** Statistics *****')
     print(f'Maximum Identity:\n{max_ident}%: {max_qur_tar[0]} -> {max_qur_tar[1]}')
     print(f'Mimimum Identity:\n{min_ident}%: {min_qur_tar[0]} -> {min_qur_tar[1]}')
     print(f'Average Identity: {mean_ident}%')
 
-    df.to_csv(output_table, sep='\t')
+    
 
 
     # shutil.rmtree(tmp_folder)
