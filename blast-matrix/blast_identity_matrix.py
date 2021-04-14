@@ -6,7 +6,7 @@ a matrix table will be generated after the calculation.
 
 # Required:
 - BLAST+ installed in $PATH
-- Biopython
+- Biopython (with pandas > 0.21)
 
 # Usage:
 $ python blast_identity_matrix.py -i input_seqs.fasta [-o output_matrix.tsv] [--thread 4] [--program blastp] 
