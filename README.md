@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4954426.svg)](https://doi.org/10.5281/zenodo.4954426)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4954426.svg)](https://doi.org/10.5281/zenodo.4954426) [![language](https://img.shields.io/badge/language-python%203.6-yellow)]()
 
 # Bio-py
 Some useful python scripts for biologists.
