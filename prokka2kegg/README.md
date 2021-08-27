@@ -13,7 +13,7 @@ $ gzip -dc idmapping.dat.gz | awk '{if($2=="KO") print ​$1,$3}' OFS="\t" | gzi
 
 ### Note
 
-UniProt has removed K numbers from their cross-reference database since early 2021. Now users have to download the formatted database from this repo ([idmapping_KO.tab.gz](https://github.com/SilentGene/Bio-py/blob/master/prokka2kegg/idmapping_KO.tab.gz)).
+UniProt has removed K numbers from their cross-reference database since early 2021. Now users have to download the formatted database (formatted in Jan 2019) from this repo ([idmapping_KO.tab.gz](https://github.com/SilentGene/Bio-py/blob/master/prokka2kegg/idmapping_KO.tab.gz)).
 
 ### Step 2: Retrieve K numbers according to the UniProtKB IDs of proteins
 ```bash
@@ -54,12 +54,17 @@ There is another script `prokka2kegg_batch.py` which could helped you handle man
 
 ## 使用
 
-### 第一步：下载和初始化Uniprot提供的数据库间对应的查询库
+### ~~第一步：下载和初始化Uniprot提供的数据库间对应的查询库~~
 ```bash
 $ wget ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/idmapping/idmapping.dat.gz
 $ gzip -dc idmapping.dat.gz | awk '{if($2=="KO") print ​$1,$3}' OFS="\t" | gzip > idmapping_KO.tab.gz
 ```
+## 说明
+
+因为Uniprot在2021年上半年废弃了其数据库中的KO号信息，现在使用该脚本必须下载本github库中格式化好的数据库（下载于2019年1月）来运行脚本 ([idmapping_KO.tab.gz](https://github.com/SilentGene/Bio-py/blob/master/prokka2kegg/idmapping_KO.tab.gz))。
+
 ### 第二步： 通过每个ORF的UniProtKB IDs在数据库中查询对应的KO号
+
 ```bash
 $ python3 prokka2kegg.py -i input.gbk -d idmapping_KO.tab.gz -o output.txt
 ```
