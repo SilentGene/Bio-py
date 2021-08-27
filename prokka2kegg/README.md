@@ -3,14 +3,17 @@ This script is used to assign KO entries (K numbers in KEGG annotation) accordin
 
 ## Usage
 
-### Step 1: Download and initialize the cross-reference database provided by UniProt
+### ~~Step 1: Download and initialize the cross-reference database provided by UniProt~~
+
 ```bash
 $ wget ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/idmapping/idmapping.dat.gz
 $ gzip -dc idmapping.dat.gz | awk '{if($2=="KO") print ​$1,$3}' OFS="\t" | gzip > idmapping_KO.tab.gz
 ```
-You could choose to remove 'idmapping.dat.gz' now.
+~~You could choose to remove 'idmapping.dat.gz' now.~~
 
-You can also download my initialized database from my repo, then you can skip to the next step.
+### Note
+
+UniProt has removed K numbers from their cross-reference database since early 2021. Now users have to download the formatted database from this repo ([idmapping_KO.tab.gz](https://github.com/SilentGene/Bio-py/blob/master/prokka2kegg/idmapping_KO.tab.gz)).
 
 ### Step 2: Retrieve K numbers according to the UniProtKB IDs of proteins
 ```bash
