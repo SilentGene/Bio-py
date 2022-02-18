@@ -2,11 +2,11 @@
 Calculate the percentage of conserved proteins **(POCP)** between two or
 more genomes to estimate their evolutionary and phenotypic distance.
 
-POCP value could be used as a robust genomic index for establishing the **genus boundary** for prokaryotic groups.
+POCP value could be used as a robust genomic index for establishing the **genus boundary** for prokaryotic groups. Generally, a POCP value of 50% could be used as a genus boundary for prokaryotic lineages according to [Qin et al (2014)](https://journals.asm.org/doi/10.1128/JB.01688-14)
 
 An elegant matrix table will be created after the calculation.
 
-The program was written based on (*Qin et al. 2014; doi: 10.1128/JB.01688-14*)
+The program was written based on the paper (*Qin et al. 2014; doi: [10.1128/JB.01688-14](https://journals.asm.org/doi/10.1128/JB.01688-14)*)
 
 ## Usage
 ```bash
@@ -35,9 +35,9 @@ $ python POCP-matrix.py -i input_dir -o output_matrix.tab [-n 8] [--clean]
 | Genome4.faa | 41.25224685 | 57.19096    | 66.48514    | 100         |
 
 # Chinese Usage 中文使用说明
-POCP_matrix.py脚本能够计算多个基因组之间的**POCP值**（保守蛋白百分比），用来判断原核生物在**属水平**上的遗传距离。
+POCP_matrix.py脚本能够计算多个基因组之间的**POCP值**（保守蛋白百分比），用来判断原核生物在**属水平**上的遗传距离。POCP值在50%以上可以被认为是一个属的边界[Qin et al (2014)](https://journals.asm.org/doi/10.1128/JB.01688-14)。
 
-该程序基于文献：(*Qin et al. 2014; doi: 10.1128/JB.01688-14*)
+该程序基于文献：(*Qin et al. 2014; doi: [10.1128/JB.01688-14](https://journals.asm.org/doi/10.1128/JB.01688-14)*)
 
 ## 使用
 ```bash
