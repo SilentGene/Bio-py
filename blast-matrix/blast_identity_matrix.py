@@ -1,24 +1,26 @@
 #! /usr/bin/env python3
 
 """
-The script calculates pair-wise sequence identities for all sequences in a multifasta format file,
-a matrix table will be generated after the calculation.
+This script calculates pair-wise sequence identities for all sequences in a multifasta format file.
+A matrix table will be generated after the calculation, and a clustered heatmap will be drawn if required.
 
 # Required:
 - BLAST+ installed in $PATH
 - Biopython (with pandas > 0.21)
+- seaborn & scipy (for drawing clustered heatmap)
 
 # Usage:
-$ python blast_identity_matrix.py -i input_seqs.fasta [-o output_matrix.tsv] [--thread 4] [--program blastp] 
+$ python blast_identity_matrix.py -i input_seqs.fasta [-o output_matrix.tsv] [--thread 4] [--program blastp] [--heatmap] [--clean]
 
 # Options:
 -i: Input file in multi-sequence FASTA format
 -o: Output matrix table in tab-delimited format [default: (input file name) + '_ident.tsv']
 -t: Threads that would be used for makeblastdb and blast [default: 2]
 -p: blast program that would be used (blastp or blastn) [default: blastp]
+--heatmap: Draw clustered heatmap. [default: False]
+--clean: Clean temporary files. [default: False]
 """
 
-import sys
 import os
 from Bio import SeqIO
 import argparse
@@ -46,6 +48,12 @@ parser.add_argument('-t', '--threads', metavar='threads', dest='t',
 parser.add_argument('-p', '--program', metavar='blast_program', dest='p',
                     type=str, required=False, default='blastp',
                     help='blast program that would be used (blastp or blastn)')
+parser.add_argument('--heatmap', metavar='heatmap', dest='m',
+                    action='store_true', required=False,
+                    help='Draw clustered heatmap. Default: False')
+parser.add_argument('--clean', metavar='clean', dest='c',
+                    action='store_true', required=False,
+                    help='Clean temporary files. Default: False')
 args = parser.parse_args()
 
 input_faa = args.i
@@ -83,13 +91,13 @@ def run_mkblastdb(fi, tp):
     try:
         # print("\n", 'Make Blast Database'.center(50, '*'))
         # print(cmd, "\n")
-        res = subprocess.check_call(cmd_para,
-                                  stdout=open(os.devnull, 'wb'),
-                                  stderr=subprocess.STDOUT,
-                                  )
+        subprocess.check_call(cmd_para,
+                              stdout=open(os.devnull, 'wb'),
+                              stderr=subprocess.STDOUT,
+                              )
     except subprocess.CalledProcessError as exc:
         print('cmd:', exc.cmd)
-        print('output:', exc.output)
+        print("Status : FAIL", exc.returncode, exc.output)
 
 
 def run_blast(q, o, db, e, b):
@@ -139,6 +147,16 @@ def blast_Parser(fi):
 def include_outputdir(s):
     return os.path.join(tmp_folder, s)
 
+def draw_heatmap(df):
+    import seaborn as sns
+    import scipy
+
+    # Draw clustered heatmap
+    cmap = sns.clustermap(df)
+
+    # Save plot to a PDF file
+    cmap.savefig("heatmap.pdf")
+
 
 if __name__ == "__main__":
     pool = Pool(args.t)
@@ -174,7 +192,7 @@ if __name__ == "__main__":
             data[query][targ] = ident
 
     df = pd.DataFrame(data).sort_index().sort_index(axis=1)
-    df.to_csv(output_table, sep='\t')
+
 
     mean_ident = df.mean(skipna = True).mean()
 
@@ -189,9 +207,15 @@ if __name__ == "__main__":
     print(f'Mimimum Identity:\n{min_ident}%: {min_qur_tar[0]} -> {min_qur_tar[1]}')
     print(f'Average Identity: {mean_ident}%')
 
+    df = df.fillna(100)  # Fill NaN values with 100
+    df.to_csv(output_table, sep='\t')
+
+    if args.c:
+        shutil.rmtree(tmp_folder)
+
+    ######## ~ draw clustered heatmap ~ ########
+    if args.m:
+        draw_heatmap(df)
     
-
-
-    # shutil.rmtree(tmp_folder)
 
 
