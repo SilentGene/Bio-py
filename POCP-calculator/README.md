@@ -38,6 +38,8 @@ $ python POCP-matrix.py -i input_dir -o output_matrix.tab [-n 8] [--clean]
 | Genome3.faa | 92.18714253 | 59.14082    | 100         | ~           |
 | Genome4.faa | 41.25224685 | 57.19096    | 66.48514    | 100         |
 
+> Please ensure that the length of every sequence header is less than 50 characters. Otherwise, Blast will be unable to create the database and will produce an error.
+
 # Chinese Usage 中文使用说明
 
 POCP_matrix.py脚本能够计算多个基因组之间的**POCP值**（保守蛋白百分比），用来判断原核生物在**属水平**上的遗传距离。POCP值在50%以上可以被认为是一个属的边界[Qin et al (2014)](https://journals.asm.org/doi/10.1128/JB.01688-14)。
@@ -71,3 +73,5 @@ $ python POCP-matrix.py -i input_dir -o output_matrix.tab [-n 8] [--clean]
 | Genome2.faa | 77.25376031 | 100         | ~           | ~           |
 | Genome3.faa | 92.18714253 | 59.14082    | 100         | ~           |
 | Genome4.faa | 41.25224685 | 57.19096    | 66.48514    | 100         |
+
+> 注意：faa文件中的header必须都小于50个字符，否则blast无法建库，会报错
