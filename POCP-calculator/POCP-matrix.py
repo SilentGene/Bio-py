@@ -83,7 +83,8 @@ def run_blastp(q, db, o, n):
                 '-evalue', '1e-5',
                 '-outfmt', "6 std qlen",
                 '-max_target_seqs', '1',
-                '-num_threads', str(n)
+                '-num_threads', str(n),
+	        '2>>blast_warnings.log'
                 ]
     try:
         run = subprocess.call(cmd_para, stdout=subprocess.PIPE)
