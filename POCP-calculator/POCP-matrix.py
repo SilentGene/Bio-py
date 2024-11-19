@@ -83,10 +83,17 @@ def run_blastp(q, db, o, n):
                 '-evalue', '1e-5',
                 '-outfmt', "6 std qlen",
                 '-max_target_seqs', '1',
-                '-num_threads', str(n)
+                '-num_threads', str(n),
                 ]
     try:
-        run = subprocess.call(cmd_para, stdout=subprocess.PIPE)
+        process = subprocess.Popen(cmd_para, stderr=subprocess.PIPE)
+        _, stderr = process.communicate()
+        
+        if stderr:
+            warnings = stderr.decode("utf-8").split('\n')
+            for warning in warnings:
+                if "Warning: [blastp] Examining 5 or more matches is recommended" not in warning and warning != '':
+                    print("Warning:", warning)
     except Exception as e:
         raise e
 
